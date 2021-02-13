@@ -8,6 +8,8 @@ function App() {
 
   const [items, setItems] = useState();
   const [isShown, setIsShown] = useState(false);
+  const [searchResult, setSearchResult] = useState();
+  const [displayedItems, setDisplayedItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
@@ -18,11 +20,13 @@ function App() {
       }
       return values;
     })
+
   }, [])
 
 
   const toggleModal = () => {
     setIsShown(!isShown);
+    setSearchResult(items)
   }
 
   const cancelHandler = () => {
@@ -30,19 +34,30 @@ function App() {
     setSelectedItems([]);
   }
 
+  const changeHandler = () => {
+    setDisplayedItems(selectedItems);
+    toggleModal();
+  }
 
   const selectItem = (e) => {
-    // let i = e.target.innerHTML;
     setSelectedItems(selectedItems.concat(e.target.innerHTML));
-    console.log(selectedItems);
+  }
+
+  const inputHandler = (e) => {
+    if(e.target.value.length > 0 ) {
+      setSearchResult(items.filter(item => item.includes(e.target.value)))
+    }
+    else {
+      setSearchResult(items);
+    }
   }
 
   return (
     <div className="App">
       <h1>Hello</h1>
       <Button variant="contained" color="primary" onClick={toggleModal}>Change</Button>
-      <SelectWindow items={items} selected={selectedItems} open={isShown} handleClose={cancelHandler} handleSelect={selectItem}/>
-      <SelectedItems items={selectedItems} />
+      <SelectWindow items={searchResult} selected={selectedItems} open={isShown} handleClose={cancelHandler} handleChange={changeHandler} handleSelect={selectItem} handleInput={inputHandler} />
+      <SelectedItems items={displayedItems} />
     </div>
   );
 }

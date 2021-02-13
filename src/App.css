@@ -15,14 +15,42 @@
 .modal {
   background-color: #fff;
   border-radius: 5px;
-  max-width: 500px;
-  min-height: 300px;
+  max-width: 600px;
+  height: 550px;
   margin: 0 auto;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .items-list {
-  height: 200px;
+  height: 400px;
+  width: 200px;
+  float: left;
   background-color: aquamarine;
   overflow-y: auto;
+}
+
+.items-list::-webkit-scrollbar {
+  display: none;
+}
+
+.selected-items-wrapper {
+  width: 100%;
+  margin: 10px auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.single-selected-item {
+  width: 30%;
+  background-color: cadetblue;
+  margin: 5px 10px;
+}
+
+.modal-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px auto;
 }
